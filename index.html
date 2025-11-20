@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Calcoli IVA e Sconto</title>
+  <style>
+    body {
+      background-color: crimson;
+      color: silver;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      width: 350px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: none;
+      text-align: center;
+      width: 80%;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      background-color: silver;
+      color: crimson;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: white;
+      transform: scale(1.05);
+    }
+
+    .results {
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-align: left;
+    }
+
+    .results p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calcolatore IVA e Sconto</h1>
+    <input type="number" id="prezzo" placeholder="Inserisci prezzo" />
+    <br>
+    <button onclick="calcola()">Calcola</button>
+
+    <div class="results" id="risultati"></div>
+  </div>
+
+  <script>
+    function calcola() {
+      const ALIQUOTA_IVA = 0.22;
+      const SCONTO = 0.15;
+
+      let prezzo = document.getElementById("prezzo").value;
+      if (prezzo === "" || isNaN(prezzo)) {
+        document.getElementById("risultati").innerHTML = "<p>⚠️ Inserisci un numero valido!</p>";
+        return;
+      }
+
+      prezzo = Number(prezzo);
+
+      // Calcoli
+      let iva = prezzo * ALIQUOTA_IVA;
+      let prezzoTotale = prezzo + iva;
+      let prezzoScontato = prezzo * (1 - SCONTO);
+
+      // Mostra risultati
+      document.getElementById("risultati").innerHTML = `
+        <p>💰 Prezzo senza IVA: € ${prezzo.toFixed(2)}</p>
+        <p>➕ IVA (22%): € ${iva.toFixed(2)}</p>
+        <p>✅ Prezzo Totale con IVA: € ${prezzoTotale.toFixed(2)}</p>
+        <p>🏷️ Prezzo con Sconto (15%): € ${prezzoScontato.toFixed(2)}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
